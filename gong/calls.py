@@ -7,6 +7,16 @@ from gong.base import GongHTTPObjectBase, GongRecords
 
 @dataclass
 class GongCallBaseFilter(GongHTTPObjectBase):
+    '''
+    GongCallBaseFilter is a dataclass that represents the base filter for the Gong Call API.
+
+    Args:
+        call_ids (Optional[List[str]]): List of call IDs.
+        from_date_time (Optional[Union[datetime, int]]): From date time.
+        primary_user_ids (Optional[List[str]]): List of primary user IDs.
+        to_date_time (Optional[Union[datetime, int]]): To date time.
+        workspace_id (Optional[str]): Workspace ID
+    '''
     call_ids: Optional[List[str]] = None
     from_date_time: Optional[Union[datetime, int]] = None
     primary_user_ids: Optional[List[str]] = None
@@ -18,13 +28,13 @@ class GongCallBaseFilter(GongHTTPObjectBase):
 
         if isinstance(self.from_date_time, int):
             self.from_date_time = datetime.fromtimestamp(self.from_date_time)
-        elif isinstance(self.from_date_time, str):
-            self.from_date_time = datetime.fromisoformat(self.from_date_time)
+        elif isinstance(self.from_date_time, datetime):
+            self.from_date_time = self.from_date_time.isoformat(timespec='seconds')
 
         if isinstance(self.to_date_time, int):
             self.to_date_time = datetime.fromtimestamp(self.to_date_time)
-        elif isinstance(self.to_date_time, str):
-            self.to_date_time = datetime.fromisoformat(self.to_date_time)
+        elif isinstance(self.to_date_time, datetime):
+            self.to_date_time = self.to_date_time.isoformat(timespec='seconds')
 
 
 @dataclass

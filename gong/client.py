@@ -13,7 +13,7 @@ from gong.calls import (
     GongGetCallsResponse,
     GongGetCallDetailsResponse,
 )
-from gong.users import GongUserResponse
+from gong.users import GongUserResponse, GongUsersResponse
 
 
 @dataclass
@@ -152,4 +152,11 @@ class GongClient:
         return self.get(
             path=f'/v2/users/{user_id}',
             response_obj=GongUserResponse,
+        )
+
+    def users(self) -> GongResponse:
+        '''Returns a list of users'''
+        return self.get(
+            path='/v2/users',
+            response_obj=GongUsersResponse,
         )

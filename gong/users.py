@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from gong.base import GongHTTPObjectBase
+from gong.base import GongHTTPObjectBase, GongRecords
 
 
 @dataclass
@@ -27,21 +27,28 @@ class GongUser(GongHTTPObjectBase):
     active: bool
     created: str
     email_address: str
-    email_aliases: List[str]
     extension: str
     first_name: str
     last_name: str
     manager_id: str
     meeting_consent_page_url: str
-    personal_meeting_urls: List[str]
     phone_number: str
     settings: GongUserSettings
-    spokenLanguages : List[GongUserSpokenLanguage]
     title: str
     trusted_email_address: str
+    email_aliases: List[str] = None
+    personal_meeting_urls: List[str] = None
+    spoken_languages : List[GongUserSpokenLanguage] = None
 
 
 @dataclass
 class GongUserResponse(GongHTTPObjectBase):
     request_id: str
     user: GongUser
+
+
+@dataclass
+class GongUsersResponse(GongHTTPObjectBase):
+    request_id: str
+    records: GongRecords
+    users: List[GongUser]
